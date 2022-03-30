@@ -1,16 +1,20 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteCompany } from '../../app/reducers/companiesSlice';
+import { Button } from 'react-bootstrap';
 
-function DefectorCard({company}) {
+import icon from '../../image/delete.svg'
+
+function DefectorCard({ company, index }) {
   const dispatch = useDispatch();
   return (
-    <li className="movie-card">
-        <p className="">{`Название компании: ${company.name}`}</p>
-        <p className="">{`Ссылка на новость: ${company.website}`}</p>
-        <p className="">{`Дата: ${company.date}`}</p>
-        <button onClick={() => dispatch(deleteCompany(company))}>Удалить</button>
-    </li>
+    <tr>
+      <td>{index + 1}</td>
+      <td>{company.name}</td>
+      <td><a href={company.website} target='_blank' rel='noreferrer'>{company.website}</a></td>
+      <td>{company.date}</td>
+      <td><Button variant="danger" onClick={() => dispatch(deleteCompany(company))}><img src={icon} alt="удаление компании"/></Button></td>
+    </tr>
   );
 }
 
