@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const cors = require('./middlewares/cors');
 
 const { PORT = 3000 } = process.env;
 const ERROR_DEFAULT = 500;
@@ -12,7 +13,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 mongoose.connect('mongodb://localhost:27017/defectorsDB');
 
-app.use('/defectors', require('./routes/companies'));
+app.use(cors)
+
+app.use('/', require('./routes/companies'));
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || ERROR_DEFAULT;
@@ -23,4 +26,4 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}`)
-}) 
+})
