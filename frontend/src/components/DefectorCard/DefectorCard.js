@@ -1,12 +1,15 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { deleteCompany } from '../../app/reducers/companiesSlice';
 
-function DefectorCard({ name, website, date }) {
+function DefectorCard({company}) {
+  const dispatch = useDispatch();
   return (
     <li className="movie-card">
-        <p className="">{`Название компании: ${name}`}</p>
-        <p className="">{`Ссылка на новость: ${website}`}</p>
-        <p className="">{`Дата: ${date}`}</p>
-        <button>Удалить</button>
+        <p className="">{`Название компании: ${company.name}`}</p>
+        <p className="">{`Ссылка на новость: ${company.website}`}</p>
+        <p className="">{`Дата: ${company.date}`}</p>
+        <button onClick={() => dispatch(deleteCompany(company))}>Удалить</button>
     </li>
   );
 }

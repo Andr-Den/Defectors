@@ -14,8 +14,8 @@ function DefectorsList() {
         Список компаний
       </button>
       <ul className="">
-        {companies.map(({ name, website, date }, index) => (
-          <DefectorCard name={name} website={website} date={date} key={index}/>
+        {companies.map((company) => (
+          <DefectorCard company={company} key={company._id}/>
         ))}
       </ul>
     </>
