@@ -1,16 +1,25 @@
-import React from 'react'
-import DefectorCard from '../DefectorCard/DefectorCard';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-function DefectorsList({companies}) {
+import DefectorCard from '../DefectorCard/DefectorCard';
+import { allCompanies, getCompanies } from '../../app/reducers/companiesSlice';
+
+function DefectorsList() {
+  const dispatch = useDispatch();
+  const companies = useSelector(allCompanies);
 
   return (
     <>
-        <ul className="">
-          {companies.map(({name, website, date}, index) => (
-            <DefectorCard name={name} website={website} date={date} key={index}/>
-          ))}
-        </ul>
-      </>
-)}
+      <button onClick={() => dispatch(getCompanies())}>
+        Список компаний
+      </button>
+      <ul className="">
+        {companies.map(({ name, website, date }, index) => (
+          <DefectorCard name={name} website={website} date={date} key={index}/>
+        ))}
+      </ul>
+    </>
+  );
+}
 
 export default DefectorsList;
