@@ -12,7 +12,7 @@ function DefectorCard({ company, index }) {
   const dispatch = useDispatch();
   return (
     <>
-    { editPageOpen ? <EditPage setEditPageOpen={setEditPageOpen} company={company}/> : '' }
+    {editPageOpen ? <EditPage setEditPageOpen={setEditPageOpen} company={company}/> : ''}
     <tr>
       <td>{index + 1}</td>
       <td>{company.name}</td>

@@ -10,7 +10,7 @@ function EditPage({setEditPageOpen, company}) {
     <div className="position-fixed d-flex w-100 h-100">
       <Modal.Dialog className="position-relative">
         <Modal.Header >
-          <Modal.Title>Добавление компании</Modal.Title>
+          <Modal.Title>Редактирование компании</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <EditForm company={company}/>
