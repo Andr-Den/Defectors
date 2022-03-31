@@ -29,6 +29,22 @@ export const addCompany = (name, website, date) => fetch(`${BASE_URL}`, {
   .then(checkResponse)
   .then((res) => res);
 
+  export const updateCompany = (data) => {
+    return fetch(`${BASE_URL}/` + data._id, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: data.name, website: data.website, date: data.date,
+      }),
+    })
+    .then(checkResponse)
+    .then((res) => {
+      return res;
+    })
+  };
+
   export const deleteCompany = (data) => {
     return fetch(`${BASE_URL}/` + data._id, {
       method: 'DELETE',

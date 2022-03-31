@@ -23,6 +23,14 @@ export const addCompany = createAsyncThunk(
   },
 );
 
+export const editCompany = createAsyncThunk(
+  'companies/updateCompany',
+  async (data) => {
+    const response = await api.updateCompany(data);
+    return response.data;
+  },
+);
+
 export const deleteCompany = createAsyncThunk(
   'companies/deleteCompany',
   async (data) => {
@@ -49,6 +57,14 @@ export const companiesSlice = createSlice({
           state.status = 'loading';
         })
         .addCase(addCompany.fulfilled, (state, action) => {
+          state.status = 'idle';
+          state.company = action.payload;
+        });
+        builder
+        .addCase(editCompany.pending, (state) => {
+          state.status = 'loading';
+        })
+        .addCase(editCompany.fulfilled, (state, action) => {
           state.status = 'idle';
           state.company = action.payload;
         });
