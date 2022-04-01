@@ -32,7 +32,7 @@ export const editCompany = createAsyncThunk(
 );
 
 export const deleteCompany = createAsyncThunk(
-  'companies/deleteCompany',
+  'companies/deleteCompany', 
   async (data) => {
     const response = await api.deleteCompany(data);
     return response.data;
@@ -74,7 +74,8 @@ export const companiesSlice = createSlice({
         })
         .addCase(deleteCompany.fulfilled, (state, action) => {
           state.status = 'idle';
-          state.company = action.payload;
+          action.payload = state.company._id
+          state.companyList = state.companyList.filter((item) => item._id !== action.payload);
         });
     },
 });
