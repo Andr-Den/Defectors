@@ -39,8 +39,10 @@ module.exports.updateCompany = (req, res, next) => {
     .orFail(new Error('Not Found'))
     .then((company) => res.send({ data: company }))
     .catch((error) => {
-      if (error.name === 'ValidationError') { next(new Error('Некорректные данные')); 
-      } else if (error.message === 'Not Found') { next(new Error('Запрашиваемый пользователь не найден')); 
+      if (error.name === 'ValidationError') {
+        next(new Error('Некорректные данные'));
+      } else if (error.message === 'Not Found') {
+        next(new Error('Запрашиваемый пользователь не найден'));
       } else {
         next(error);
       }
@@ -50,9 +52,7 @@ module.exports.updateCompany = (req, res, next) => {
 module.exports.deleteCompany = (req, res, next) => {
   Company.findById(req.params._id)
     .orFail(new Error('Запрашиваемая карточка не найдена'))
-    .then((company) => {
-      return company.remove();
-    })
+    .then((company) => company.remove())
     .then(() => res.send({ message: 'Карточка успешно удалена' }))
     .catch((error) => {
       if (error.name === 'CastError') {

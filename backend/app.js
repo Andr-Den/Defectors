@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('./middlewares/cors');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3001 } = process.env;
 const ERROR_DEFAULT = 500;
 
 const app = express();
@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 mongoose.connect('mongodb://localhost:27017/defectorsDB');
 
-app.use(cors)
+app.use(cors);
 
 app.use('/', require('./routes/companies'));
 
@@ -25,5 +25,6 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`App listening on port ${PORT}`)
-})
+  // eslint-disable-next-line no-console
+  console.log(`App listening on port ${PORT}`);
+});
