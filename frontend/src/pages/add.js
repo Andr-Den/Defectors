@@ -8,9 +8,6 @@ import store from '../app/store';
 
 function Add() {
   const dispatch = useDispatch();
-  const [name, setName] = React.useState('');
-  const [website, setWebsite] = React.useState('');
-  const [date, setDate] = React.useState('');
   const { register, handleSubmit } = useForm();
   const onSubmit = data => { 
     dispatch(addCompany(data));
@@ -28,11 +25,11 @@ function Add() {
       <Form onSubmit={handleSubmit(onSubmit)} className="w-50">
         <Form.Group className="d-grid gap-2">
           <Form.Label>Название компании</Form.Label>
-          <Form.Control {...register('name')} value={name || ''} onChange={(e) => setName(e.target.value)}/>
+          <Form.Control {...register('name')}/>
           <Form.Label>Ссылка на новость</Form.Label>
-          <Form.Control {...register('website')} value={website || ''} onChange={(e) => setWebsite(e.target.value)}/>
+          <Form.Control {...register('website')}/>
           <Form.Label>Дата</Form.Label>
-          <Form.Control {...register('date')} value={date || ''} onChange={(e) => setDate(e.target.value)}/>
+          <Form.Control {...register('date')}/>
           <Button type="submit" variant="success" className="mt-3 w-25 m-auto">Добавить</Button>
           <Button variant="secondary" className="w-25 m-auto" onClick={handleClick}>Назад</Button>
         </Form.Group>
