@@ -6,14 +6,20 @@ import { useRouter } from 'next/router';
 import { editCompany } from '../../app/reducers/companiesSlice';
 import store from '../../app/store';
 
- function Edit() {
-  const [name, setName] = React.useState('');
-  const [website, setWebsite] = React.useState('');
-  const [date, setDate] = React.useState('');
-  const { register, handleSubmit } = useForm();
-  const dispatch = useDispatch();
+ function Edit({todo}) {
   const router = useRouter();
   const { id } = router.query;
+  const dispatch = useDispatch();
+
+  const defaultValues = {
+    name: todo.data.name,
+    website: todo.data.website,
+    date: todo.data.date,
+  }
+
+  const { register, handleSubmit } = useForm({
+    defaultValues });
+
   const onSubmit = data => {
     dispatch(editCompany({...data, _id: id}))
     router.push('/');
@@ -29,11 +35,11 @@ import store from '../../app/store';
       <Form onSubmit={handleSubmit(onSubmit)} className="w-50">
         <Form.Group className="d-grid gap-2">
           <Form.Label>Название компании</Form.Label>
-          <Form.Control {...register('name')} value={name || ''} onChange={(e) => setName(e.target.value)}/>
+          <Form.Control {...register('name')}/>
           <Form.Label>Ссылка на новость</Form.Label>
-          <Form.Control {...register('website')} value={website || ''} onChange={(e) => setWebsite(e.target.value)}/>
+          <Form.Control {...register('website')}/>
           <Form.Label>Дата</Form.Label>
-          <Form.Control {...register('date')} value={date || ''} onChange={(e) => setDate(e.target.value)}/>
+          <Form.Control {...register('date')}/>
           <Button type="submit" variant="success" className="w-25 m-auto">Редактировать</Button>
           <Button variant="secondary" className="w-25 m-auto" onClick={handleClick}>Назад</Button>
         </Form.Group>
@@ -41,5 +47,18 @@ import store from '../../app/store';
     </div>
   );
 }
+
+export const getServerSideProps = async (context) => {
+  const res = await fetch(
+    `http://localhost:3001/${context.params.id}`
+  );
+  const todo = await res.json();
+
+  return {
+    props: {
+      todo,
+    },
+  };
+};
 
 export default connect(store)(Edit);
