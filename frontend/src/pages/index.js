@@ -11,7 +11,7 @@ function DefectorsList() {
   const dispatch = useDispatch();
   const companies = useSelector(allCompanies);
   const router = useRouter();
-
+  
   React.useEffect(() => {
     dispatch(getCompanies())
   }, [dispatch])
@@ -22,7 +22,7 @@ function DefectorsList() {
   }
 
   return (
-    <>
+    <div className="page">
     <h1 className="">Список компаний, ушедших из России</h1>
       <Table striped bordered hover className="mt-3">
         <thead>
@@ -40,7 +40,7 @@ function DefectorsList() {
           ))}
         </tbody>
       </Table>
-    </>
+    </div>
   );
 }
 
