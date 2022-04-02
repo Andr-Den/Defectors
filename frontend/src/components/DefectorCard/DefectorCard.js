@@ -1,16 +1,22 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import { useRouter } from 'next/router';
-import { deleteCompany } from '../../app/reducers/companiesSlice';
 
 function DefectorCard({ company, index }) {
-  const dispatch = useDispatch();
   const router = useRouter();
 
+  const handleViewClick = (e) => {
+    e.preventDefault()
+    router.push(`/view/${company._id}`)
+  }
   const handleClick = (e) => {
     e.preventDefault()
     router.push(`/edit/${company._id}`)
+  }
+  
+  const handleDeleteClick = (e) => {
+    e.preventDefault()
+    router.push(`/remove/${company._id}`)
   }
 
   return (
@@ -21,8 +27,9 @@ function DefectorCard({ company, index }) {
       <td><a href={company.website} target='_blank' rel='noreferrer'>{company.website}</a></td>
       <td>{company.date}</td>
       <td className="d-flex justify-content-between">
+        <Button variant="danger" onClick={handleViewClick}>Просмотр</Button>
         <Button variant="primary" onClick={handleClick}>Редактировать</Button>
-        <Button variant="danger" onClick={() => dispatch(deleteCompany(company))}>Удалить</Button>
+        <Button variant="danger" onClick={handleDeleteClick}>Удалить</Button>
       </td>
     </tr>
   </>
