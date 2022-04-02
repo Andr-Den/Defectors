@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import * as api from '../../utils/api';
 
 const initialState = {
-  companyList: [],
+  companiesList: [],
   company: {},
   status: '',
 };
@@ -11,6 +11,14 @@ export const getCompanies = createAsyncThunk(
   'companies/getCompanies',
   async () => {
     const response = await api.getCompanies();
+    return response.data;
+  },
+);
+
+export const getCompany = createAsyncThunk(
+  'companies/getCompany',
+  async (data) => {
+    const response = await api.getCompany(data);
     return response.data;
   },
 );
@@ -50,7 +58,15 @@ export const companiesSlice = createSlice({
         })
         .addCase(getCompanies.fulfilled, (state, action) => {
           state.status = 'idle';
-          state.companyList = action.payload;
+          state.companiesList = action.payload;
+        });
+        builder
+        .addCase(getCompany.pending, (state) => {
+          state.status = 'loading';
+        })
+        .addCase(getCompany.fulfilled, (state, action) => {
+          state.status = 'idle';
+          state.company = action.payload;
         });
         builder
         .addCase(addCompany.pending, (state) => {
@@ -58,7 +74,7 @@ export const companiesSlice = createSlice({
         })
         .addCase(addCompany.fulfilled, (state, action) => {
           state.status = 'idle';
-          state.company = action.payload;
+          state.companiesList.push(action.payload)
         });
         builder
         .addCase(editCompany.pending, (state) => {
@@ -74,12 +90,13 @@ export const companiesSlice = createSlice({
         })
         .addCase(deleteCompany.fulfilled, (state, action) => {
           state.status = 'idle';
-          action.payload = state.company._id
-          state.companyList = state.companyList.filter((item) => item._id !== action.payload);
+          action.payload = state.company._id;
+          state.companiesList = state.companiesList.filter((item) => item._id !== action.payload);
         });
     },
 });
 
-export const allCompanies = (state) => state.companies.companyList;
+export const allCompanies = (state) => state.companies.companiesList;
+export const oneCompany = (state) => state.companies.company;
 
 export default companiesSlice.reducer;
