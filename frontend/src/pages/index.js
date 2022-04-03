@@ -16,7 +16,7 @@ function DefectorsList() {
   const dispatch = useDispatch();
   const companies = useSelector(allCompanies);
   const router = useRouter();
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
   const onSubmit = data => {
     dispatch(searchName(data));
   }
@@ -32,6 +32,7 @@ function DefectorsList() {
 
   const handleReturnClick = (e) => {
     e.preventDefault()
+    setValue('search', '')
     dispatch(getCompanies())
   }
 
@@ -65,7 +66,7 @@ function DefectorsList() {
               <DefectorCard company={company} key={company._id} index={index}/>
             ))}
           </tbody>
-        </Table> : <p>Ничего не найдено</p>}
+        </Table> : <h2 className="text-center mt-5">Ничего не найдено :(</h2>}
         <Footer />
     </div>
   );
