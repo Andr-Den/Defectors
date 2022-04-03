@@ -1,3 +1,4 @@
+const url = require('url');
 const Company = require('../models/company');
 
 module.exports.getCompanies = (req, res, next) => {
@@ -61,4 +62,11 @@ module.exports.deleteCompany = (req, res, next) => {
         next(error);
       }
     });
+};
+
+module.exports.search = (req, res, next) => {
+  const searchString = url.parse(req.url, true).query.query;
+  Company.find({ $text: { $search: searchString } })
+    .then((company) => res.send({ data: company }))
+    .catch(next);
 };
