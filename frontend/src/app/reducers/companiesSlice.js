@@ -23,6 +23,14 @@ export const getCompany = createAsyncThunk(
   },
 );
 
+export const searchName = createAsyncThunk(
+  'companies/searchName', 
+  async (data) => {
+    const response = await api.searchName(data);
+    return response.data;
+  },
+);
+
 export const addCompany = createAsyncThunk(
   'companies/addCompany',
   async ({name, website, date}) => {
@@ -67,6 +75,14 @@ export const companiesSlice = createSlice({
         .addCase(getCompany.fulfilled, (state, action) => {
           state.status = 'idle';
           state.company = action.payload;
+        });
+        builder
+        .addCase(searchName.pending, (state) => {
+          state.status = 'loading';
+        })
+        .addCase(searchName.fulfilled, (state, action) => {
+          state.status = 'idle';
+          state.companiesList = action.payload;
         });
         builder
         .addCase(addCompany.pending, (state) => {
