@@ -6,7 +6,11 @@ import { useRouter } from 'next/router';
 import store from '../app/store';
 import { Button, Form, Table } from 'react-bootstrap';
 import DefectorCard from '../components/DefectorCard/DefectorCard';
+import Footer from '../components/Footer/Footer';
 import { allCompanies, getCompanies, searchName } from '../app/reducers/companiesSlice';
+
+import Search from '../images/search.svg'
+import Return from '../images/return.svg'
 
 function DefectorsList() {
   const dispatch = useDispatch();
@@ -32,29 +36,28 @@ function DefectorsList() {
   }
 
   return (
-    <div className="page">
-      <div className="">
-        <h1 className="">Список компаний, ушедших из России</h1>
-        <div className="d-flex justify-content-center align-items-center mt-5">
+    <div>
+      <div>
+        <h1>Список компаний, ушедших из России</h1>
+        <div className="d-flex justify-content-center mt-5">
           <Form onSubmit={handleSubmit(onSubmit)} className="w-50">
-            <Form.Group className="d-grid gap-2">
-              <Form.Label>Поиск</Form.Label>
+            <Form.Group className="d-flex gap-3">
               <Form.Control {...register('search')}/>
-              <Button type="submit" variant="success" className="mt-3 w-25 m-auto">Поиск</Button>
-              <Button variant="secondary" className="w-25 m-auto" onClick={handleReturnClick}>Назад</Button>
+              <Button type="submit" variant="success"><Search /></Button>
+              <Button variant="secondary" onClick={handleReturnClick}><Return /></Button>
             </Form.Group>
           </Form>
         </div>
       </div>
       {companies.length !== 0 ? 
-        <Table striped bordered hover className="mt-3">
+        <Table striped bordered hover className="w-75 m-auto mt-5">
           <thead>
             <tr>
-              <th>#</th>
-              <th>Имя</th>
-              <th>Ссылка на новость</th>
-              <th>Дата</th>
-              <th><Button variant="success" onClick={handleClick} className="m-auto w-100">Добавить</Button></th>
+              <th className="col-1">#</th>
+              <th className="col-1">Имя</th>
+              <th className="col-7">Ссылка на новость</th>
+              <th className="col-1">Дата</th>
+              <th className="col-2"><Button variant="success" onClick={handleClick} className="m-auto w-100">Добавить</Button></th>
             </tr>
           </thead>
           <tbody>
@@ -63,6 +66,7 @@ function DefectorsList() {
             ))}
           </tbody>
         </Table> : <p>Ничего не найдено</p>}
+        <Footer />
     </div>
   );
 }
