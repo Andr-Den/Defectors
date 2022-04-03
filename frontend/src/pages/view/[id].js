@@ -13,11 +13,14 @@ import store from '../../app/store';
   }
 
   return (
-    <div className="d-flex flex-column mt-5">
+    <div className="d-flex flex-column mt-5 align-items-center">
+      <span>Название: </span>
       <h1>{company.data.name}</h1>
-      <p>{company.data.website}</p>
-      <p>{company.data.date}</p>
-      <Button variant="secondary" className="w-25 m-auto" onClick={handleClick}>Назад</Button>
+      <span>Ссылка на новость: </span>
+      <a href={company.data.website} target='_blank' rel='noreferrer'><h2>{company.data.website}</h2></a>
+      <span>Дата: </span>
+      <h3>{company.data.date}</h3>
+      <Button variant="secondary" className="w-25 m-auto mt-3" onClick={handleClick}>Назад</Button>
     </div>
   );
 }
