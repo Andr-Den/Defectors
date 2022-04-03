@@ -22,8 +22,8 @@ import store from '../../app/store';
   return (
     <div className="d-flex flex-column mt-5">
       <h1>Вы правда хотите удалить компанию {company.name}?</h1>
-      <Button variant="danger" className="w-25 m-auto" onClick={() => {router.push('/'); dispatch(deleteCompany(company))}}>Да</Button>
-      <Button variant="secondary" className="w-25 m-auto" onClick={handleClick}>Нет</Button>
+      <Button variant="success" className="w-25 m-auto mt-3" onClick={() => {router.push('/'); dispatch(deleteCompany(company))}}>Да</Button>
+      <Button variant="danger" className="w-25 m-auto mt-3" onClick={handleClick}>Нет</Button>
     </div>
   );
 }
