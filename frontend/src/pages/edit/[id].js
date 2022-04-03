@@ -6,15 +6,15 @@ import { useRouter } from 'next/router';
 import { editCompany } from '../../app/reducers/companiesSlice';
 import store from '../../app/store';
 
- function Edit({todo}) {
+ function Edit({companies}) {
   const router = useRouter();
   const { id } = router.query;
   const dispatch = useDispatch();
 
   const defaultValues = {
-    name: todo.data.name,
-    website: todo.data.website,
-    date: todo.data.date,
+    name: companies.data.name,
+    website: companies.data.website,
+    date: companies.data.date,
   }
 
   const { register, handleSubmit } = useForm({
@@ -52,11 +52,11 @@ export const getServerSideProps = async (context) => {
   const res = await fetch(
     `http://localhost:3001/${context.params.id}`
   );
-  const todo = await res.json();
+  const companies = await res.json();
 
   return {
     props: {
-      todo,
+      companies,
     },
   };
 };
