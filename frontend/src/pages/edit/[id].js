@@ -40,7 +40,7 @@ import store from '../../app/store';
           <Form.Control {...register('website')}/>
           <Form.Label>Дата</Form.Label>
           <Form.Control {...register('date')}/>
-          <Button type="submit" variant="success" className="w-25 m-auto">Редактировать</Button>
+          <Button type="submit" variant="success" className="w-25 m-auto mt-3">Редактировать</Button>
           <Button variant="secondary" className="w-25 m-auto" onClick={handleClick}>Назад</Button>
         </Form.Group>
       </Form>
